@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI新品创新平台</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">AI新品创新平台</div>
+            <div class="nav-links">
+                <a href="#concept">概念生成</a>
+                <a href="#favorites">收藏夹</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 概念生成 -->
+    <section id="concept" class="section">
+        <div class="container">
+            <h2>概念生成</h2>
+            
+            <div class="form-container">
+                <h3>爆词上传与配置</h3>
+                <form id="concept-form">
+                    <div class="form-group">
+                        <label>上传主品类爆词Excel</label>
+                        <input type="file" id="main-category-upload" accept=".xlsx,.xls">
+                        <p class="help-text">请上传包含主品类爆词数据的Excel文档</p>
+                    </div>
+                    <div class="form-group">
+                        <label>上传副品类爆词Excel</label>
+                        <input type="file" id="sub-category-upload" accept=".xlsx,.xls">
+                        <p class="help-text">请上传包含副品类爆词数据的Excel文档</p>
+                    </div>
+                    <div class="form-group">
+                        <label>主品类</label>
+                        <input type="text" id="main-category" placeholder="如：糖果">
+                    </div>
+                    <div class="form-group">
+                        <label>副品类</label>
+                        <input type="text" id="sub-category" placeholder="如：果汁">
+                    </div>
+                    <div class="form-group">
+                        <label>组合方式</label>
+                        <select id="combination-type">
+                            <option value="sub-into-main">副爆词融入主爆词</option>
+                            <option value="equal">主副对等融合</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>生成数量</label>
+                        <input type="number" id="generate-count" value="3" min="1" max="20">
+                    </div>
+                    <div class="form-group">
+                        <label>创意风格</label>
+                        <select id="creativity-style">
+                            <option value="conservative">保守</option>
+                            <option value="moderate" selected>适中</option>
+                            <option value="radical">激进</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>目标人群（可选）</label>
+                        <input type="text" id="target-audience" placeholder="如：办公室白领">
+                    </div>
+                    <button type="button" class="btn primary-btn" onclick="generateConcepts()">生成概念</button>
+                </form>
+            </div>
+
+            <div class="concepts-list">
+                <h3>生成的概念</h3>
+                <div class="concept-cards" id="concept-results">
+                    <!-- 生成的概念将在这里显示 -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 概念卡生成 -->
+    <section id="concept-card" class="section">
+        <div class="container">
+            <h2>概念卡生成</h2>
+            
+            <div class="concept-card-generator" id="concept-card-generator" style="display: none;">
+                <h3>概念卡详情</h3>
+                <div class="card-preview">
+                    <div class="card-image">
+                        <img id="concept-card-image" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=巧克力产品 现代简约风格&image_size=square" alt="概念卡图片">
+                    </div>
+                    <div class="card-info">
+                        <h4 id="concept-card-title">乌龙茶心黑巧脆球</h4>
+                        <div class="card-selling-points" id="concept-card-selling-points">
+                            <span>茶香浓郁</span>
+                            <span>低糖健康</span>
+                            <span>口感酥脆</span>
+                        </div>
+                        <p class="card-description" id="concept-card-description">融合乌龙茶的清香与黑巧克力的醇厚，口感酥脆，低糖健康，为都市白领带来全新的味觉体验。</p>
+                        <div class="card-actions">
+                            <button class="btn primary-btn" onclick="generateImage()">重新生成图片</button>
+                            <button class="btn secondary-btn" onclick="saveToFavorites()">收藏概念卡</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 收藏夹 -->
+    <section id="favorites" class="section">
+        <div class="container">
+            <h2>收藏夹</h2>
+            
+            <div class="favorites-list" id="favorites-list">
+                <p class="empty-message">暂无收藏的概念卡</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 AI新品创新平台 | 市场研究行业解决方案</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
